@@ -3,11 +3,25 @@ import './App.css';
 import Counter from './Counter';
 import Player from './Player';
 import Users from './Users';
+import Friends from './Friends';
+import Posts from './Posts';
 
 const fetchUser = fetch("https://jsonplaceholder.typicode.com/users")
   .then(res => res.json())
 
+const fetchFriends = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users")
+  return res.json();
+}
+
+const fetchPosts = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
+  return res.json();
+}
+
 function App() {
+  const friendsPromise = fetchFriends();
+  const postsPromise = fetchPosts();
 
   function handleClick1() {
     alert("Click 1");
@@ -24,11 +38,23 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
+
+      <Suspense fallback={<p>The posts are loading</p>}>
+        <Posts postsPromise={postsPromise}></Posts>
+      </Suspense>
+
+      <Suspense fallback={<h3>Friends are coming....</h3>}>
+        <Friends friendsPromise={friendsPromise}></Friends>
+      </Suspense>
+
       <Suspense fallback={<p>Loading....</p>}>
         <Users fetchUser={fetchUser}></Users>
       </Suspense>
+
       <Player player="Tamim Iqbal"></Player>
+
       <Counter></Counter>
+
       <button onClick={handleClick1}>Click me1</button>
       <button onClick={function handleClick2() {
         alert("click 2");
