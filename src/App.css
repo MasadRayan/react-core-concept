@@ -65,3 +65,9 @@
   padding: 10px;
   padding-bottom: 20px;
 }
+.card {
+  border: 2px solid gold;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+}

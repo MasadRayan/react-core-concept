@@ -1,24 +1,32 @@
+import { Suspense } from 'react';
 import './App.css';
 import Counter from './Counter';
 import Player from './Player';
+import Users from './Users';
+
+const fetchUser = fetch("https://jsonplaceholder.typicode.com/users")
+  .then(res => res.json())
 
 function App() {
 
-    function handleClick1() {
-      alert("Click 1");
-    }
-    const handleClick3 = () => {
-      alert("Click3")
-    }
+  function handleClick1() {
+    alert("Click 1");
+  }
+  const handleClick3 = () => {
+    alert("Click3")
+  }
 
-    const handleAdd = (number) => {
-      let newnum = number + 5;
-      alert(newnum);
-    }
+  const handleAdd = (number) => {
+    let newnum = number + 5;
+    alert(newnum);
+  }
 
   return (
     <>
       <h1>Vite + React</h1>
+      <Suspense fallback={<p>Loading....</p>}>
+        <Users fetchUser={fetchUser}></Users>
+      </Suspense>
       <Player player="Tamim Iqbal"></Player>
       <Counter></Counter>
       <button onClick={handleClick1}>Click me1</button>
